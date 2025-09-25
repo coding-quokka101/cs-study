@@ -77,3 +77,58 @@
 ## 전체 흐름 요약
 
 Fork → Clone → Branch 생성 → Commit → Push → Pull Request → Merge → 브랜치 삭제 → Upstream fetch
+
+---
+
+## VSCode에서 Fork 저장소 원본 동기화하기
+
+### 1. 현재 원격 저장소 확인
+```bash
+git remote -v
+```
+
+```bash
+origin  https://github.com/ms-0o0/cs-study.git (fetch)
+origin  https://github.com/ms-0o0/cs-study.git (push)
+```
+위처럼 나오면 잘 연결된 것!
+
+### 2. (선택) 원격 저장소 이름 변경
+현재 원격 저장소 이름을 바꾸고 싶다면 아래 명령어 실행:
+
+```bash
+git remote rename origin <변경하고자 하는 이름>
+```
+예시: 원본 저장소를 origin으로 쓰고 싶어서 fork 이름을 mskim으로 변경 ```remote rename origin mskim```
+
+### 3. 원본 저장소 주소 추가
+```bash
+git remote add <원격 저장소 이름> https://github.com/aaxx98/cs-study.git
+```
+
+정상적으로 추가되면:
+```bash
+코드 복사
+mskim   https://github.com/<내 깃 주소>/cs-study.git (fetch)
+mskim   https://github.com/<내 깃 주소>/cs-study.git (push)
+origin  https://github.com/aaxx98/cs-study.git (fetch)
+origin  https://github.com/aaxx98/cs-study.git (push)
+```
+
+### 4. 원본 저장소 변경 사항 확인
+```bash
+git fetch origin
+```
+변경 사항이 있으면 로그가 길게 출력됨
+
+터미널이 : 상태로 멈추면 q + Enter로 빠져나오기
+
+### 5. 원본 저장소 변경 사항 병합
+``` bash
+git merge <원본 저장소>/main
+```
+
+### 6. 내 저장소에 푸시
+```bash
+git push <네 저장소> main
+```
