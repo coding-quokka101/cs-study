@@ -41,6 +41,20 @@ computer science study (2025.09.22~)
   ## 질문과 답변
   ```
 
+**`make-dir.sh` 사용하여 템플릿 생성**
+
+템플릿 디렉토리가 자동 생성됩니다.
+
+```bash
+./make-dir.sh [주제 분류]
+```
+
+- 실행 권한 설정
+
+  ```bash
+  chmod +x make-dir.sh # 권한부여: 최초 1회 실행
+  ```
+
 ### 4. 편집 가이드
 
 - [CS 스터디 레포지토리 운영 가이드](./%EC%9E%91%EC%84%B1-%EA%B0%80%EC%9D%B4%EB%93%9C/README.md)
