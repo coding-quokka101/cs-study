@@ -58,3 +58,4 @@ computer science study (2025.09.22~)
 ### 4. 편집 가이드
 
 - [CS 스터디 레포지토리 운영 가이드](./%EC%9E%91%EC%84%B1-%EA%B0%80%EC%9D%B4%EB%93%9C/README.md)
+- [git 명령어 정리](./%EB%AA%85%EB%A0%B9%EC%96%B4%EC%A0%95%EB%A6%AC//README.md)
