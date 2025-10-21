@@ -265,3 +265,148 @@
   - 프로그램 카운터 세팅 후 실행 재개
 
 ### 11. 스레드를 사용하는 JAVA 코드의 예시
+
+```
+// 1. Thread 클래스 상속으로 스레드 사용
+class MyThread extends Thread {
+    @Override
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println(Thread.currentThread().getName() + ": " + i);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+...
+
+// Thread 클래스 사용
+MyThread thread1 = new MyThread();
+thread1.start();
+```
+
+* Thread 클래스를 상속하고 `run()`을 오버라이드
+* `start()` 호출 시 새로운 스레드에서 `run()` 실행
+* 간단하지만 다른 클래스를 상속할 수 없음
+
+```
+// 2. Runnable 인터페이스 구현으로 스레드 사용
+class MyRunnable implements Runnable {
+    @Override
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println(Thread.currentThread().getName() + ": " + i);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+...
+
+// Runnable 인터페이스 사용
+Thread thread2 = new Thread(new MyRunnable());
+thread2.start();
+```
+
+* Runnable 인터페이스를 구현하고 `run()` 작성
+* `start()` 호출 시 현재 스레드에서 `run()` 실행
+* 다중 상속 가능, 스레드 로직과 객체 분리 가능
+
+```
+public class ThreadExample {
+    public static void main(String[] args) {
+        // 동기화 예제
+        Counter counter = new Counter();
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                counter.increment();
+            }
+        });
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                counter.increment();
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Final count: " + counter.getCount());
+    }
+}
+
+// 동기화된 카운터 클래스
+class Counter {
+    private int count = 0;
+
+    public synchronized void increment() {
+        count++;
+    }
+
+    public synchronized int getCount() {
+        return count;
+    }
+}
+```
+
+* `start()`
+   * 새로운 스레드 실행 시작
+   * `t1.start();`
+      * run() 메서드를 새로운 스레드에서 실행하도록 스케줄러에 등록
+* `join()`
+   * 다른 스레드가 끝날 때까지 기다림
+   * `t1.join();`, `t2.join();`
+      * main 스레드는 t1과 t2가 완료될 때까지 대기
+* `synchronized`
+   * 동시 접근으로 인한 Race Condition 방지
+
+
+```
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread running: " + Thread.currentThread().getName());
+    }
+
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        MyThread t2 = new MyThread();
+        t1.start();  // 새로운 스레드 시작
+        t2.start();
+    }
+}
+
+```
+
+* start() → OS가 스레드 생성 요청
+* run() → 실제 스레드가 실행하는 코드
+
+
+```
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread 실행 중");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        t1.start();
+    }
+}
+```
